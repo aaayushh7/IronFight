@@ -12,7 +12,7 @@ function createPrismaClient(): PrismaClient {
   const dbUrl = process.env.DATABASE_URL ?? "file:./dev.db";
   // Resolve relative paths from project root
   const normalizedUrl = dbUrl.startsWith("file:./")
-    ? `file:${path.join(process.cwd(), dbUrl.replace("file:./", ""))}`
+    ? `file:${path.join(/*turbopackIgnore: true*/ process.cwd(), dbUrl.replace("file:./", ""))}`
     : dbUrl;
 
   const adapter = new PrismaBetterSqlite3({ url: normalizedUrl });
