@@ -197,7 +197,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Upstash upgrade banner */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         className="rounded-2xl overflow-hidden bg-gradient-to-br from-violet-500 to-purple-600 p-4"
@@ -220,7 +220,7 @@ export default function SettingsPage() {
             </div>
           </div>
         </div>
-      </motion.div>
+      </motion.div> */}
 
       {/* Settings sections */}
       {settingsSections.map((section, si) => (
