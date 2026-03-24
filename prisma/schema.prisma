@@ -1,13 +1,52 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlite"
+}
+
+model MealCompletion {
+  id          String   @id @default(cuid())
+  date        String   // "YYYY-MM-DD"
+  mealType    String   // "breakfast" | "morningSnack" | "lunch" | "eveningSnack" | "dinner"
+  items       String   // JSON array of selected item names
+  status      String   @default("completed") // "completed" | "missed" | "skipped"
+  notes       String?
+  completedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([date, mealType])
+  @@index([date])
+}
+
+model Complaint {
+  id        String   @id @default(cuid())
+  mealType  String
+  itemName  String
+  note      String?
+  status    String   @default("open") // "open" | "resolved"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([createdAt])
+}
+
+model MealPlanConfig {
+  id        String   @id @default(cuid())
+  mealType  String   @unique
+  label     String
+  startTime String   // "HH:MM" 24h format
+  endTime   String
+  items     String   // JSON array of item names
+  emoji     String
+  color     String
+  updatedAt DateTime @updatedAt
+}
+
+model DayReset {
+  id        String   @id @default(cuid())
+  date      String   @unique
+  resetAt   DateTime @default(now())
 }

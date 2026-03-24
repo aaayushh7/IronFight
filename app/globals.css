@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,15 +7,138 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #FBF8FF;
+  --foreground: #2A2535;
+  --muted: #8B85A0;
+  --primary: #C9A7EB;
+  --secondary: #F4B8C7;
+  --accent: #A8D8EA;
+  --success: #B8E4C9;
+  --card: rgba(255, 255, 255, 0.75);
+  --border: rgba(201, 167, 235, 0.2);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none;
+}
+
+/* ─── Glass card ─────────────────────────────────────────────────────────── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow:
+    0 4px 28px rgba(201, 167, 235, 0.13),
+    0 1px 0 rgba(255, 255, 255, 0.85) inset;
+}
+
+.glass-card-elevated {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 8px 40px rgba(201, 167, 235, 0.18),
+    0 2px 0 rgba(255, 255, 255, 0.9) inset;
+}
+
+/* ─── Mesh background ────────────────────────────────────────────────────── */
+.mesh-bg {
+  background-color: #FBF8FF;
+  background-image:
+    radial-gradient(at 15% 8%,  rgba(244, 184, 199, 0.40) 0px, transparent 55%),
+    radial-gradient(at 82% 4%,  rgba(201, 167, 235, 0.35) 0px, transparent 50%),
+    radial-gradient(at 4%  65%, rgba(168, 216, 234, 0.28) 0px, transparent 50%),
+    radial-gradient(at 92% 72%, rgba(232, 213, 245, 0.38) 0px, transparent 55%),
+    radial-gradient(at 50% 95%, rgba(184, 228, 201, 0.25) 0px, transparent 50%),
+    radial-gradient(at 60% 45%, rgba(255, 214, 165, 0.18) 0px, transparent 50%);
+}
+
+/* ─── Custom scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 167, 235, 0.38);
+  border-radius: 999px;
+}
+
+/* ─── Skeleton shimmer ───────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(201, 167, 235, 0.08) 25%,
+    rgba(201, 167, 235, 0.18) 50%,
+    rgba(201, 167, 235, 0.08) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+
+/* ─── Progress ring ──────────────────────────────────────────────────────── */
+@keyframes fill-ring {
+  from { stroke-dashoffset: var(--circumference); }
+  to   { stroke-dashoffset: var(--offset); }
+}
+
+.progress-ring-circle {
+  animation: fill-ring 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ─── Confetti float-up ──────────────────────────────────────────────────── */
+@keyframes float-up {
+  0%   { transform: translateY(0)    scale(0.6) rotate(0deg);   opacity: 1; }
+  50%  { transform: translateY(-45vh) scale(1.1) rotate(15deg);  opacity: 1; }
+  100% { transform: translateY(-85vh) scale(0.8) rotate(-10deg); opacity: 0; }
+}
+
+.confetti-particle {
+  animation: float-up var(--duration, 1.4s) var(--delay, 0s)
+    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ─── Pulse glow (active meal) ───────────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 167, 235, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(201, 167, 235, 0); }
+}
+
+.active-meal-pulse {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ─── Pill button base ───────────────────────────────────────────────────── */
+.pill-button {
+  border-radius: 999px;
+  padding: 0.625rem 1.5rem;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.pill-button:active { transform: scale(0.95); }
+
+/* ─── Safe area for nav bar ──────────────────────────────────────────────── */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
