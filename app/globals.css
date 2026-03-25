@@ -158,3 +158,8 @@ h3 { font-size: 1rem; font-weight: 600; }
 .pt-safe {
   padding-top: env(safe-area-inset-top, 0px);
 }
+
+/* ─── Sonner toast: push below Dynamic Island / status bar ──────────────── */
+[data-sonner-toaster][data-position="top-center"] {
+  top: calc(env(safe-area-inset-top, 0px) + 12px) !important;
+}

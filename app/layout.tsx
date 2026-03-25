@@ -53,7 +53,6 @@ export default function RootLayout({
         <NotificationReminder />
         <Toaster
           position="top-center"
-          offset="calc(env(safe-area-inset-top, 0px) + 12px)"
           toastOptions={{
             style: {
               background: "rgba(255, 255, 255, 0.92)",
