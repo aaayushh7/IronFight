@@ -1,7 +1,7 @@
 // Meal Recovery Tracker — Service Worker
 // Handles PWA caching and scheduled meal-time notifications
 
-const CACHE_NAME = "meal-tracker-v1";
+const CACHE_NAME = "meal-tracker-v2";
 const STATIC_ASSETS = ["/", "/plan", "/progress", "/complain", "/settings"];
 
 // ─── Install: pre-cache shell ─────────────────────────────────────────────────
