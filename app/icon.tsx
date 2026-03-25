@@ -8,7 +8,7 @@ export default function Icon() {
     (
       <div
         style={{
-          background: "linear-gradient(135deg, #FBAED2 0%, #E8A5D5 50%, #C9A7EB 100%)",
+          background: "#f9f8f2",
           width: "100%",
           height: "100%",
           display: "flex",
