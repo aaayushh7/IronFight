@@ -135,7 +135,7 @@ export default function ComplainPage() {
       {/* Header */}
       <div>
         <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">
-          Let them know
+          Let him know
         </p>
         <h1 className="text-2xl font-extrabold text-slate-700 tracking-tight">
           Missing Items 💌
