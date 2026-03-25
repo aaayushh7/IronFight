@@ -1,20 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Playfair_Display, Nunito } from "next/font/google";
 import "./globals.css";
 import { NavBar } from "@/components/nav-bar";
 import { Toaster } from "sonner";
+import { NotificationReminder } from "@/components/notification-reminder";
 
-const geist = Geist({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  variable: "--font-nunito",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Meal Recovery Tracker",
   description: "Your personal recovery meal companion — stay consistent, feel great.",
-  manifest: "/manifest.json",
-  icons: {
-    icon: "/favicon.ico",
+  appleWebApp: {
+    capable: true,
+    title: "Recovery",
+    statusBarStyle: "black-translucent",
   },
 };
 
@@ -23,6 +32,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  viewportFit: "cover",
   themeColor: "#FAF8FF",
 };
 
@@ -32,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={geist.variable}>
+    <html lang="en" className={`${playfair.variable} ${nunito.variable}`}>
       <body className="mesh-bg min-h-screen antialiased">
         <div className="max-w-md mx-auto min-h-screen relative">
           <main className="pb-28 pt-2">
@@ -40,6 +50,7 @@ export default function RootLayout({
           </main>
           <NavBar />
         </div>
+        <NotificationReminder />
         <Toaster
           position="top-center"
           toastOptions={{
@@ -50,7 +61,8 @@ export default function RootLayout({
               borderRadius: "1rem",
               color: "#2D2A35",
               fontSize: "14px",
-              fontWeight: "500",
+              fontWeight: "600",
+              fontFamily: "var(--font-nunito)",
             },
           }}
         />

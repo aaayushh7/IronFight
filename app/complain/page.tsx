@@ -15,7 +15,7 @@ const MEAL_EMOJI: Record<MealType, string> = {
   lunch:        "🌿",
   eveningSnack: "☁️",
   dinner:       "🌙",
-  beforeBed:    "🌙✨",
+  beforeBed:    "✨",
 };
 
 const MEAL_LABEL: Record<MealType, string> = {

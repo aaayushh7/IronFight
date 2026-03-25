@@ -42,6 +42,35 @@ export default function SettingsPage() {
       .catch(() => {});
   }, []);
 
+  const scheduleRemindersViaSW = useCallback(
+    async (mealConfigs: MealConfig[]) => {
+      if (!("serviceWorker" in navigator)) return;
+      if (Notification.permission !== "granted") return;
+      try {
+        const reg = await navigator.serviceWorker.ready;
+        if (!reg.active) return;
+        const now = new Date();
+        const meals = mealConfigs
+          .map((c) => {
+            const [h, m] = c.startTime.split(":").map(Number);
+            const target = new Date(now);
+            target.setHours(h, m, 0, 0);
+            return {
+              type: c.type,
+              label: c.label,
+              emoji: c.emoji,
+              msUntil: target.getTime() - now.getTime(),
+            };
+          })
+          .filter((m) => m.msUntil > 0 && m.msUntil < 24 * 60 * 60 * 1000);
+        reg.active.postMessage({ type: "SCHEDULE_REMINDERS", meals });
+      } catch {
+        // Non-critical
+      }
+    },
+    []
+  );
+
   const toggleReminders = async () => {
     if (!remindersEnabled) {
       if ("Notification" in window) {
@@ -50,9 +79,10 @@ export default function SettingsPage() {
         if (permission === "granted") {
           setRemindersEnabled(true);
           localStorage.setItem(REMINDERS_KEY, "true");
-          toast.success("Reminders enabled! 🔔");
+          toast.success("Reminders enabled! 🌸");
+          await scheduleRemindersViaSW(configs);
         } else {
-          toast.error("Permission denied. Enable in browser settings.");
+          toast.error("Permission denied. Enable in iOS Settings → Safari.");
           return;
         }
       } else {

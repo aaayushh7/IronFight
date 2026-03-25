@@ -282,7 +282,7 @@ export const DEFAULT_MEAL_CONFIGS: MealConfig[] = [
   {
     type: "beforeBed",
     label: "Before Bed",
-    emoji: "🌙✨",
+    emoji: "✨",
     color: "#E8D5F5",
     gradient: "from-purple-100 to-pink-50",
     startTime: "21:30",
