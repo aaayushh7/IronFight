@@ -45,7 +45,7 @@ export default function RootLayout({
     <html lang="en" className={`${playfair.variable} ${nunito.variable}`}>
       <body className="mesh-bg min-h-screen antialiased">
         <div className="max-w-md mx-auto min-h-screen relative">
-          <main className="pb-28 pt-2">
+          <main className="pb-28 pt-2 pt-safe">
             {children}
           </main>
           <NavBar />
